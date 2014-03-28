@@ -8,7 +8,7 @@ use Mojo::Base -base;
 use Mojo::Loader;
 use Text::Xslate ();
 
-our $VERSION = '0.09';
+our $VERSION = '0.09CH';
 $VERSION = eval $VERSION;
 
 has 'xslate';
