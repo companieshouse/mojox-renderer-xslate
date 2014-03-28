@@ -28,9 +28,9 @@ sub _init {
 
     if ($app) {
         $cache_dir = $app->home->rel_dir('tmp/compiled_templates');
-        push @path, Mojo::Loader->new->data(
-            $app->renderer->classes->[0],
-        );
+        foreach my $class ( @{$app->renderer->classes} ) {
+            push @path, Mojo::Loader->new->data( $class );
+        }
     }
     else {
         $cache_dir = File::Spec->tmpdir;
