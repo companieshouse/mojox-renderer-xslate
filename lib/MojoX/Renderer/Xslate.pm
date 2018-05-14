@@ -5,10 +5,10 @@ use warnings;
 
 use File::Spec ();
 use Mojo::Base -base;
-use Mojo::Loader;
+use Mojo::Loader qw(data_section);
 use Text::Xslate ();
 
-our $VERSION = '0.092';
+our $VERSION = '0.093';
 $VERSION = eval $VERSION;
 
 has 'xslate';
@@ -27,12 +27,12 @@ sub _init {
 
     my $app = $args{mojo} || $args{app};
     my $cache_dir;
-    my @path = $app->home->rel_dir('templates');
+    my @path = $app->home->rel_file('templates');
 
     if ($app) {
-        $cache_dir = $app->home->rel_dir('tmp/compiled_templates');
+        $cache_dir = $app->home->rel_file('tmp/compiled_templates');
         foreach my $class ( @{$app->renderer->classes} ) {
-            push @path, Mojo::Loader->new->data( $class );
+            push @path, data_section( $class );
         }
     }
     else {
